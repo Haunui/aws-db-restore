@@ -2,9 +2,6 @@
 
 DATABASE="webapp"
 
-SSH_OPTS="-o StrictHostKeyChecking=no"
-SSH_LOGIN="ubuntu@$IP"
-
 BKP_SSH_LOGIN="bkp@192.168.0.9"
 
 f=0
@@ -16,6 +13,9 @@ if ! ssh -o StrictHostKeyChecking=no $BKP_SSH_LOGIN 'cat /volume1/aws-bkp/instan
 fi
 
 IP=$(cat instance_ip)
+
+SSH_OPTS="-o StrictHostKeyChecking=no"
+SSH_LOGIN="ubuntu@$IP"
 
 if [ -z "$(ssh $SSH_OPTS $SSH_LOGIN "sudo mysql -e \"show databases\"" | grep $DATABASE)" ]; then
   echo "Create database $DATABASE"
