@@ -49,7 +49,7 @@ if [ $f -gt 0 ]; then
     scp $SSH_OPTS $line $SSH_LOGIN:~ < /dev/null
     ssh $SSH_OPTS $SSH_LOGIN "sudo mysql $DATABASE < $line; rm -f $line" < /dev/null
 
-  done < <(echo "$bkp_files" | tr ',' '\n' | tac)
+  done < <(echo "${bkp_files::-1}" | tr ',' '\n' | tac)
 fi
 
 echo "$f files restored"
