@@ -20,6 +20,7 @@ IP=$(cat instance_ip)
 if [ -z "$(ssh $SSH_OPTS $SSH_LOGIN "sudo mysql -e \"show databases\"" | grep $DATABASE)" ]; then
   echo "Create database $DATABASE"
   ssh $SSH_OPTS $SSH_LOGIN "sudo mysql -e 'create database $DATABASE'"
+  ssh $SSH_OPTS $SSH_LOGIN "sudo mysql -e 'show databases'"
 fi
 
 while IFS= read -r line; do
