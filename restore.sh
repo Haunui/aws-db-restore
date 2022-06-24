@@ -29,8 +29,8 @@ while IFS= read -r line; do
   rsync -e "ssh -o StrictHostKeyChecking=no" -az $BKP_SSH_LOGIN:/volume1/aws-bkp/$line .
 
   echo "Restore $line"
-  scp $SSH_OPTS $line $SSH_LOGIN:~
-  ssh $SSH_OPTS $SSH_LOGIN "sudo mysql $DATABASE < $line; rm -f $line"
+  scp $SSH_OPTS $line $SSH_LOGIN:~ < /dev/null
+  ssh $SSH_OPTS $SSH_LOGIN "sudo mysql $DATABASE < $line; rm -f $line" < /dev/null
 
   if [[ $line =~ ${DATABASE}.sql ]]; then
     echo "db backup found, exit"
