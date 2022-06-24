@@ -35,6 +35,6 @@ while IFS= read -r line; do
     break
   fi
 
-done < <(ssh -o StrictHostKeyChecking=no $BKP_SSH_LOGIN 'ls -t /volume1/aws-bkp')
+done < <(ssh -o StrictHostKeyChecking=no $BKP_SSH_LOGIN 'ls -t /volume1/aws-bkp | grep -v instance_ip')
 
 echo "$f file restored"
