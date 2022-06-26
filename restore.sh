@@ -1,6 +1,11 @@
 #!/usr/bin/bash
 
-DATABASE="webapp"
+DATABASE=$1
+
+if [ -z "$DATABASE" ]; then
+  echo "Usage: $0 <database>"
+  exit 1
+fi
 
 SSH_OPTS="-o StrictHostKeyChecking=no"
 
