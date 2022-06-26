@@ -4,7 +4,7 @@ DATABASE="webapp"
 
 f=0
 
-if ! ssh -o StrictHostKeyChecking=no $BKP_SSH_LOGIN 'cat /volume1/aws-bkp/instance_ip' < /dev/null > instance_ip; then
+if ! ssh -o StrictHostKeyChecking=no $BKP_SSH_LOGIN "cat $BKP_PATH/instance_ip" < /dev/null > instance_ip; then
   echo "No instance found"
   echo "Nothing to do."
   exit 0
@@ -33,7 +33,7 @@ while IFS= read -r line; do
     break
   fi
 
-done < <(ssh -o StrictHostKeyChecking=no $BKP_SSH_LOGIN 'ls -t /volume1/aws-bkp | grep -v instance_ip')
+done < <(ssh -o StrictHostKeyChecking=no $BKP_SSH_LOGIN "ls -t $BKP_PATH | grep -v instance_ip")
 
 if [ $f -gt 0 ]; then
   f=0
@@ -41,7 +41,7 @@ if [ $f -gt 0 ]; then
     f=$(($f+1))
 
     echo "Download $line"
-    rsync -e "ssh -o StrictHostKeyChecking=no" -az $BKP_SSH_LOGIN:/volume1/aws-bkp/$line .
+    rsync -e "ssh -o StrictHostKeyChecking=no" -az $BKP_SSH_LOGIN:$BKP_PATH/$line .
 
     echo "Restore $line"
     scp $SSH_OPTS $line $SSH_LOGIN:~ < /dev/null
