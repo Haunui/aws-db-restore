@@ -1,8 +1,8 @@
 # aws-db-restore
 
 Job script :  
+
     #!/usr/bin/bash  
-      
     if [[ $NEW_ENV == true ]]; then  
 	      echo "Trigger deploy pipeline"  
           exit 42  
