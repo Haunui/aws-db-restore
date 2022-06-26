@@ -2,8 +2,6 @@
 
 DATABASE="webapp"
 
-BKP_SSH_LOGIN="bkp@192.168.0.9"
-
 f=0
 
 if ! ssh -o StrictHostKeyChecking=no $BKP_SSH_LOGIN 'cat /volume1/aws-bkp/instance_ip' < /dev/null > instance_ip; then
